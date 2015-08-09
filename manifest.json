@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "Twitter Timestamp Switcher",
+  "version": "0.1",
+  "description": "Extension to switch Twitter timestamp from relative to absolute",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "permissions": [
+    "tabs"
+  ],
+
+  "icons" : {
+    "16": "icon.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+        "19": "icon.png"
+    },
+    "default_title": "Twitter Timestamp"
+  },
+
+  "content_scripts": [{
+      "matches": [
+        "https://twitter.com/",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "js/lib/jquery.min.js",
+        "main.js"
+      ]
+  }]
+}
