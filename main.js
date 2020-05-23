@@ -1,20 +1,22 @@
-$(function() {
-    var now = new Date();
-    setInterval(function() {
-        $("._timestamp.js-short-timestamp").each(function() {
-            var timestamp = $(this).attr("data-time");
-            var dt = new Date(timestamp * 1000);
-            var time = dt.toLocaleTimeString();
+const now = new Date();
+setInterval(() => {
+  for (elem of document.querySelectorAll("time")) {
+    // 処理済みならスキップ
+    if (elem.innerText.indexOf(":") >= 0){
+      continue;
+    }
+    let dt = new Date(elem.getAttribute("datetime"))
+    let time = dt.toLocaleTimeString();
 
-            if (now.toLocaleDateString() != dt.toLocaleDateString()) {
-                if (now.getFullYear() == dt.getFullYear()) {
-                    var date = [dt.getMonth() + 1, dt.getDate()].join('/');
-                } else {
-                    var date = [dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join('/');
-                }
-                time = date + ' ' + time;
-            }
-            $(this).text(time);
-        });
-    }, 1000);
-});
+    if (now.toLocaleDateString() != dt.toLocaleDateString()) {
+      let date = "";
+      if (now.getFullYear() == dt.getFullYear()) {
+        date = [dt.getMonth() + 1, dt.getDate()].join("/");
+      } else {
+        date = [dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join("/");
+      }
+      time = date + " " + time;
+    }
+    elem.innerText = time;
+  }
+}, 500);
